@@ -1,15 +1,17 @@
 import { createHomeStyles } from "@/assets/styles/home.styles";
+import EmptyState from "@/components/EmptyState";
 import Header from "@/components/Header";
 import LoadingSpinner from "@/components/LoadingSpinner";
 import TodoInput from "@/components/TodoInput";
 import { api } from "@/convex/_generated/api";
-import { Doc } from "@/convex/_generated/dataModel";
+import { Doc, Id } from "@/convex/_generated/dataModel";
 import { useTheme } from "@/hooks/useTheme";
 import { Ionicons } from "@expo/vector-icons";
-import { useQuery } from "convex/react";
+import { useMutation, useQuery } from "convex/react";
 
 import { LinearGradient } from "expo-linear-gradient";
 import {
+  Alert,
   FlatList,
   StatusBar,
   Text,
@@ -25,7 +27,17 @@ export default function Index() {
   const homestyles = createHomeStyles(colors);
   const todos = useQuery(api.todos.getTodos);
   const isLoading = todos === undefined;
+  const toggleTodo = useMutation(api.todos.toggleTodo);
   if (isLoading) return <LoadingSpinner />;
+  const handleToggeleTodo = async (id:Id<"todos">) => {
+    try {
+      await toggleTodo({ id });
+    } catch (error) {
+      console.error("Error toggling todo:", error);
+      Alert.alert("Error", "There was an error toggling the todo item.");
+    }
+  }
+
 
   const renderTodoItem = ({ item }: { item: Todo }) => {
     return (
@@ -39,7 +51,7 @@ export default function Index() {
           <TouchableOpacity
             style={homestyles.checkbox}
             activeOpacity={0.7}
-            onPress={() => {}}
+            onPress={() => handleToggeleTodo(item._id)}
           >
             <LinearGradient
               colors={
@@ -59,6 +71,37 @@ export default function Index() {
               )}
             </LinearGradient>
           </TouchableOpacity>
+          <View style={homestyles.todoTextContainer}>
+            <Text
+              style={[
+                homestyles.todoText,
+                item.isCompleted && {
+                  textDecorationLine: "line-through",
+                  color: colors.textMuted,
+                  opacity: 0.6,
+                },
+              ]}
+            >
+              {item.title}
+            </Text>
+
+             <View style={homestyles.todoActions}>
+              <TouchableOpacity onPress={() =>{} }activeOpacity={0.8}>
+                 <LinearGradient colors={colors.gradients.warning} style={homestyles.actionButton}>
+                    <Ionicons name="pencil" size={14} color="#fff" />
+
+                 </LinearGradient>
+
+              </TouchableOpacity>
+              <TouchableOpacity onPress={() =>{} }activeOpacity={0.8}>
+                 <LinearGradient colors={colors.gradients.danger} style={homestyles.actionButton}>
+                    <Ionicons name="trash" size={14} color="#fff" />
+
+                 </LinearGradient>
+                
+              </TouchableOpacity>
+             </View>
+          </View>
         </LinearGradient>
       </View>
     );
@@ -80,9 +123,10 @@ export default function Index() {
           keyExtractor={(item) => item._id}
           style={homestyles.todoList}
           contentContainerStyle={homestyles.todoListContent}
+          ListEmptyComponent={<EmptyState />}
+          showsVerticalScrollIndicator={false}
         />
       </SafeAreaView>
     </LinearGradient>
   );
 }
-``
