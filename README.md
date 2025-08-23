@@ -26,20 +26,7 @@ In this a **real‑time to‑do application** that runs on **iOS, Android, and t
   - All updates reflect **instantly** across devices
   - Powered by **Convex** database
 
----
 
-## 🧠 What You’ll Learn
-
-- 🏗️ Build a mobile app using **React Native + Expo**
-- 🧭 Use both **tab** and **stack** navigation (React Navigation)
-- 🧱 Master core components: `View`, `Text`, `FlatList`, `ScrollView`, `TouchableOpacity`, `Switch`
-- 🌈 Style with gradients, modals, alerts, and themes
-- ⚡ Connect to a real‑time backend with **Convex**
-- 🌓 Implement **Dark Mode** and local state toggles
-- 🧹 Handle deletion, editing, and real-time sync
-- 📱 Run apps on **iOS, Android**, or the **web**—no Mac needed!
-
----
 
 ## 📁 .env Setup
 
