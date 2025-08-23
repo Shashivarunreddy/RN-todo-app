@@ -20,7 +20,7 @@ const TodoInput = () => {
         await addTodo({ title: newTodo.trim() });
         setNewTodo("");
       } catch (error) {
-        console.log("Error adding a todo", error);
+        // console.log("Error adding a todo", error);
         Alert.alert("Error", "Failed to add todo");
       }
     }

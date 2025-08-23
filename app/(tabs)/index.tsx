@@ -40,7 +40,7 @@ export default function Index() {
     try {
       await toggleTodo({ id });
     } catch (error) {
-      console.error("Error toggling todo:", error);
+      // console.error("Error toggling todo:", error);
       Alert.alert("Error", "There was an error toggling the todo item.");
     }
   }
@@ -64,7 +64,7 @@ export default function Index() {
       setEditText("");
       setEditingId(null);
     } catch (error) {
-      console.error("Error updating todo:", error);
+      // console.error("Error updating todo:", error);
       Alert.alert("Error", "There was an error updating the todo item.");
     }
   }

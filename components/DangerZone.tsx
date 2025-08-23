@@ -30,7 +30,7 @@ const DangerZone = () => {
                 `Successfully deleted ${result.deletedCount} todo${result.deletedCount === 1 ? "" : "s"}. Your app has been reset.`
               );
             } catch (error) {
-              console.log("Error deleting all todos", error);
+              // console.log("Error deleting all todos", error);
               Alert.alert("Error", "Failed to reset app");
             }
           },
